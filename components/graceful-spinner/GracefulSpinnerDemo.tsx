@@ -1,9 +1,12 @@
+"use client";
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { IconButton } from "@radix-ui/themes";
 import { RefreshButton } from "./RefreshButton";
 import RefreshIcon from "./RefreshIcon";
 import classNames from "classnames";
 import dayjs from "dayjs";
+import "./styles.css";
 
 const SPIN_DURATION = 1500;
 
@@ -15,7 +18,7 @@ const getMockDelay = () => {
   return base;
 };
 
-export default function App() {
+export const GracefulSpinnerDemo = () => {
   const [lastRefreshTime] = useState<dayjs.Dayjs>(dayjs());
 
   const [refreshStatus, setRefreshStatus] = useState<
@@ -95,88 +98,86 @@ export default function App() {
         : "Idle";
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex items-center justify-center gap-4">
-        <div className="flex flex-col items-center gap-5">
-          <span className="text-[12px] font-medium text-gray-400">
-            Abrupt stop
-          </span>
-          <IconButton
-            onClick={handleNaiveRefresh}
-            variant="surface"
-            color={naiveJustStopped ? "red" : "gray"}
-            radius="large"
-            size="4"
-          >
-            <RefreshIcon
-              width={24}
-              height={24}
-              className={
-                naiveSpinning
-                  ? "[animation:refresh-spin_1.5s_linear_infinite]"
-                  : ""
-              }
-            />
-          </IconButton>
-          <div className="flex flex-col items-center gap-0.5">
-            <span className="w-72 text-center text-[12px] text-gray-400">
-              {naiveStatusText}
-            </span>
-            <span className="flex items-center gap-1.5 font-mono text-[12px] tabular-nums">
-              <span className="text-gray-300">
-                {formatElapsed(naiveElapsed)}
-              </span>
-              {(naiveSpinning || naiveElapsed > 0) && (
-                <span
-                  className={classNames(
-                    "text-[11px] transition-colors duration-300",
-                    naiveSpinning ? "text-gray-400" : "text-gray-300"
-                  )}
-                >
-                  {naiveSpinning ? "fetching" : "fetched"}
-                </span>
-              )}
-            </span>
-          </div>
-        </div>
-
-        <div className="h-32 w-px bg-gray-200" />
-
-        <div className="flex flex-col items-center gap-5">
-          <span className="text-[12px] font-medium text-gray-400">
-            Graceful completion
-          </span>
-          <RefreshButton
-            onClick={mockFetch}
-            lastRefreshTime={lastRefreshTime}
-            onStatusChange={handleGracefulStatusChange}
-            size="4"
-            color={refreshStatus === "completing" ? "green" : "gray"}
+    <div className="flex items-center justify-center gap-4 py-12">
+      <div className="flex flex-col items-center gap-5">
+        <span className="text-[12px] font-medium text-gray-400">
+          Abrupt stop
+        </span>
+        <IconButton
+          onClick={handleNaiveRefresh}
+          variant="surface"
+          color={naiveJustStopped ? "red" : "gray"}
+          radius="large"
+          size="4"
+        >
+          <RefreshIcon
+            width={24}
+            height={24}
+            className={
+              naiveSpinning
+                ? "[animation:refresh-spin_1.5s_linear_infinite]"
+                : ""
+            }
           />
-          <div className="flex flex-col items-center gap-0.5">
-            <span className="w-72 text-center text-[12px] text-gray-400">
-              {gracefulStatusText}
+        </IconButton>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="w-72 text-center text-[12px] text-gray-400">
+            {naiveStatusText}
+          </span>
+          <span className="flex items-center gap-1.5 font-mono text-[12px] tabular-nums">
+            <span className="text-gray-300">
+              {formatElapsed(naiveElapsed)}
             </span>
-            <span className="flex items-center gap-1.5 font-mono text-[12px] tabular-nums">
-              <span className="text-gray-300">
-                {formatElapsed(gracefulElapsed)}
+            {(naiveSpinning || naiveElapsed > 0) && (
+              <span
+                className={classNames(
+                  "text-[11px] transition-colors duration-300",
+                  naiveSpinning ? "text-gray-400" : "text-gray-300"
+                )}
+              >
+                {naiveSpinning ? "fetching" : "fetched"}
               </span>
-              {(refreshStatus === "fetching" || gracefulFetched) && (
-                <span
-                  className={classNames(
-                    "text-[11px] transition-colors duration-300",
-                    refreshStatus === "fetching"
-                      ? "text-gray-400"
-                      : "text-gray-300"
-                  )}
-                >
-                  {refreshStatus === "fetching" ? "fetching" : "fetched"}
-                </span>
-              )}
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div className="h-32 w-px bg-gray-200" />
+
+      <div className="flex flex-col items-center gap-5">
+        <span className="text-[12px] font-medium text-gray-400">
+          Graceful completion
+        </span>
+        <RefreshButton
+          onClick={mockFetch}
+          lastRefreshTime={lastRefreshTime}
+          onStatusChange={handleGracefulStatusChange}
+          size="4"
+          color={refreshStatus === "completing" ? "green" : "gray"}
+        />
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="w-72 text-center text-[12px] text-gray-400">
+            {gracefulStatusText}
+          </span>
+          <span className="flex items-center gap-1.5 font-mono text-[12px] tabular-nums">
+            <span className="text-gray-300">
+              {formatElapsed(gracefulElapsed)}
             </span>
-          </div>
+            {(refreshStatus === "fetching" || gracefulFetched) && (
+              <span
+                className={classNames(
+                  "text-[11px] transition-colors duration-300",
+                  refreshStatus === "fetching"
+                    ? "text-gray-400"
+                    : "text-gray-300"
+                )}
+              >
+                {refreshStatus === "fetching" ? "fetching" : "fetched"}
+              </span>
+            )}
+          </span>
         </div>
       </div>
     </div>
   );
-}
+};

@@ -1,3 +1,5 @@
+"use client";
+
 import RefreshIcon from "./RefreshIcon";
 import { IconButton, IconButtonProps } from "@radix-ui/themes";
 import { useState, useEffect } from "react";
@@ -25,9 +27,6 @@ export const RefreshButton = ({
   const [lastUpdateTime, setLastUpdateTime] = useState<dayjs.Dayjs>(dayjs());
   const [currentTime, setCurrentTime] = useState<dayjs.Dayjs>(dayjs());
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
-  // This state takes care of the animation completion of the refresh icon.
-  // It completes the current iteration of the animation even if the refresh
-  // is completed before the animation is finished
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [isSettling, setIsSettling] = useState<boolean>(false);
 

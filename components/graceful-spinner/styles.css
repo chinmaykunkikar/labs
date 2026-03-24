@@ -1,7 +1,3 @@
-@import "tailwindcss";
-
-@import "@radix-ui/themes/styles.css" layer(base);
-
 @keyframes refresh-spin {
   from {
     transform: rotate(0deg);
