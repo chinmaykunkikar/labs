@@ -2,6 +2,12 @@ import Link from "next/link";
 
 const experiments = [
   {
+    slug: "scroll-frames",
+    title: "Scroll-driven frame sequencer",
+    description:
+      "Apple-style scroll-driven video frames on canvas with synchronized text animations.",
+  },
+  {
     slug: "graceful-spinner",
     title: "Graceful spinner completion",
     description:

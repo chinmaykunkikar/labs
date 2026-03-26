@@ -1,0 +1,40 @@
+export const CONFIG = {
+  TOTAL_FRAMES: 360,
+  FRAME_PATH_PREFIX: "/frames/frame-",
+  FRAME_EXTENSION: ".png",
+  FRAME_DIGITS: 3,
+  SCROLL_HEIGHT_MULTIPLIER: 18,
+  SCRUB_DURATION: 3,
+  PRELOAD_BATCH_SIZE: 6,
+  PRIORITY_FRAME_COUNT: 15,
+  TEXT_SEGMENTS: [
+    {
+      start: 0.0,
+      end: 0.25,
+      key: "intro",
+      headline: "Frame by Frame",
+      body: "A video broken into individual frames, played back through scroll position alone.",
+    },
+    {
+      start: 0.25,
+      end: 0.55,
+      key: "feature",
+      headline: "Canvas Rendering",
+      body: "Each frame is drawn on a hardware-accelerated canvas with cover-fit scaling and retina support.",
+    },
+    {
+      start: 0.55,
+      end: 0.85,
+      key: "detail",
+      headline: "Scroll Precision",
+      body: "GSAP ScrollTrigger maps your scroll position to exact frame indices with smooth interpolation.",
+    },
+    {
+      start: 0.85,
+      end: 1.0,
+      key: "cta",
+      headline: "Keep Scrolling",
+      body: "The rest of the page flows naturally once the sequence ends.",
+    },
+  ],
+} as const;
